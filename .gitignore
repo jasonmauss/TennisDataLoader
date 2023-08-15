@@ -1,0 +1,8 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.vs/TennisDataLoader/v17/.suo
+/.idea/.idea.TennisDataLoader/.idea
+/.vs/TennisDataLoader
