@@ -91,6 +91,8 @@ partial class MainForm
         chk2023 = new CheckBox();
         btnSelectNoYears = new Button();
         btnSelectAllYears = new Button();
+        lblStatus = new Label();
+        pbarProgress = new ProgressBar();
         grpMatchYears.SuspendLayout();
         flpMatchYears.SuspendLayout();
         SuspendLayout();
@@ -103,6 +105,7 @@ partial class MainForm
         btnLoadPlayers.TabIndex = 0;
         btnLoadPlayers.Text = "Load Players";
         btnLoadPlayers.UseVisualStyleBackColor = true;
+        btnLoadPlayers.Click += btnLoadPlayers_Click;
         // 
         // btnLoadMatches
         // 
@@ -112,13 +115,14 @@ partial class MainForm
         btnLoadMatches.TabIndex = 1;
         btnLoadMatches.Text = "Load Matches";
         btnLoadMatches.UseVisualStyleBackColor = true;
+        btnLoadMatches.Click += btnLoadMatches_Click;
         // 
         // grpMatchYears
         // 
         grpMatchYears.Controls.Add(flpMatchYears);
         grpMatchYears.Controls.Add(btnSelectNoYears);
         grpMatchYears.Controls.Add(btnSelectAllYears);
-        grpMatchYears.Location = new Point(12, 69);
+        grpMatchYears.Location = new Point(12, 122);
         grpMatchYears.Name = "grpMatchYears";
         grpMatchYears.Size = new Size(272, 445);
         grpMatchYears.TabIndex = 2;
@@ -770,11 +774,32 @@ partial class MainForm
         btnSelectAllYears.UseVisualStyleBackColor = true;
         btnSelectAllYears.Click += btnSelectAllYears_Click;
         // 
+        // lblStatus
+        // 
+        lblStatus.AutoSize = true;
+        lblStatus.Location = new Point(12, 64);
+        lblStatus.Name = "lblStatus";
+        lblStatus.Size = new Size(76, 15);
+        lblStatus.TabIndex = 3;
+        lblStatus.Text = "<StatusText>";
+        // 
+        // pbarProgress
+        // 
+        pbarProgress.Location = new Point(12, 82);
+        pbarProgress.Name = "pbarProgress";
+        pbarProgress.Size = new Size(271, 23);
+        pbarProgress.Step = 1;
+        pbarProgress.Style = ProgressBarStyle.Continuous;
+        pbarProgress.TabIndex = 4;
+        pbarProgress.Value = 50;
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(301, 526);
+        ClientSize = new Size(295, 579);
+        Controls.Add(pbarProgress);
+        Controls.Add(lblStatus);
         Controls.Add(grpMatchYears);
         Controls.Add(btnLoadMatches);
         Controls.Add(btnLoadPlayers);
@@ -788,6 +813,7 @@ partial class MainForm
         flpMatchYears.ResumeLayout(false);
         flpMatchYears.PerformLayout();
         ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -854,4 +880,6 @@ partial class MainForm
     private CheckBox chk2021;
     private CheckBox chk2022;
     private CheckBox chk2023;
+    private Label lblStatus;
+    private ProgressBar pbarProgress;
 }
