@@ -55,6 +55,12 @@ public partial class MainForm : Form
 
     }
 
+    private void UpdateProgress(int percentComplete)
+    {
+        pbarProgress.Value = percentComplete;
+        pbarProgress.Update();
+    }
+
     /// <summary>
     /// This click handler kicks off the process of loading
     /// player data into the database
@@ -64,6 +70,8 @@ public partial class MainForm : Form
     private void btnLoadPlayers_Click(object sender, EventArgs e)
     {
         UpdateStatusLabel("Loading Player Data...");
+        UpdateProgress(0); // basically reset progress to zero before this runs
+
     }
 
     /// <summary>
@@ -75,6 +83,7 @@ public partial class MainForm : Form
     private void btnLoadMatches_Click(object sender, EventArgs e)
     {
         List<int> years = new List<int>();
+        UpdateProgress(0); // basically reset progress to zero before this runs
 
         UpdateStatusLabel("Gathering Years...");
 
