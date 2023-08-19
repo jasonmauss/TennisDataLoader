@@ -12,14 +12,22 @@ namespace TennisDataLoader
     /// </summary>
     public class DataFileDownloader
     {
+        public event EventHandler<DataFileDownloadEventArgs> DownloadCompleted;
         /// <summary>
         /// Downloads a file from the internet to the local drive.
         /// </summary>
         /// <param name="dataFileUrl">The local file path (including the file name) where the file being downloaded should be saved to.</param>
         /// <param name="csvDataFileUrl">The internet address where the file can be found.</param>
-        public static void DownloadFile(string csvDataFileUrl, string localCsvFilePath)
+        public async Task DownloadFile(string csvDataFileUrl, string localCsvFilePath)
         {
 
+
+        }
+
+
+        protected virtual void OnDownloadCompleted(DataFileDownloadEventArgs e)
+        {
+            DownloadCompleted?.Invoke(this, e);
         }
     }
 }
