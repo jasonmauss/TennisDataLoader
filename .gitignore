@@ -6,3 +6,4 @@ riderModule.iml
 /.vs/TennisDataLoader/v17/.suo
 /.idea/.idea.TennisDataLoader/.idea
 /.vs/TennisDataLoader
+/TennisDataLoader/DataFiles/PlayersData/atp_players.csv

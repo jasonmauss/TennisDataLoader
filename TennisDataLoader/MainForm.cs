@@ -1,3 +1,6 @@
+using System.Reflection;
+using TennisDataLoader.Extensions;
+
 namespace TennisDataLoader;
 
 public partial class MainForm : Form
@@ -55,22 +58,65 @@ public partial class MainForm : Form
 
     }
 
-    private void UpdateProgress(int percentComplete)
+    /// <summary>
+    /// Updates the progress bar with a certain value and refreshes the UI
+    /// </summary>
+    /// <param name="percentComplete"></param>
+    private void UpdateProgress(double percentComplete)
     {
-        pbarProgress.Value = percentComplete;
+        pbarProgress.Value = Convert.ToInt32(percentComplete);
         pbarProgress.Update();
     }
 
     /// <summary>
-    /// This click handler kicks off the process of loading
-    /// player data into the database
+    /// This click handler kicks off the process of downloading the csv data file
+    /// and then loading that player data into the database
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnLoadPlayers_Click(object sender, EventArgs e)
+    private async void btnLoadPlayers_Click(object sender, EventArgs e)
     {
-        UpdateStatusLabel("Loading Player Data...");
+        UpdateStatusLabel("Downloading Player Data...");
         UpdateProgress(0); // basically reset progress to zero before this runs
+
+        string playersCsvDataFileUrl = @"https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_players.csv";
+        string localPlayersDataFilePath = Path.Combine(ProjectSourcePath.Value + @"DataFiles\PlayersData\atp_players.csv");
+
+        using (DataFileDownloader dataFileDownloader = new DataFileDownloader())
+        {
+            dataFileDownloader.ProgressChanged += DataFileDownloader_ProgressChanged;
+            dataFileDownloader.DownloadCompleted += DataFileDownloader_DownloadCompleted;
+            await dataFileDownloader.DownloadFile(playersCsvDataFileUrl, localPlayersDataFilePath);
+        }
+
+    }
+
+    /// <summary>
+    /// This is the event handler that receives the notification that a file download progress has changed
+    /// </summary>
+    /// <param name="sender">The sending class/assembly (in this case, the DataFileDownloader class)</param>
+    /// <param name="e">The arguments that accompany the event (see the properties of <seealso cref="DataFileDownloader"/>)</param>
+    private void DataFileDownloader_ProgressChanged(object? sender, DataFileDownloadProgressEventArgs e)
+    {
+        UpdateStatusLabel((int)e.ProgressPercentage + "% Completed.");
+        UpdateProgress(e.ProgressPercentage);
+    }
+
+    /// <summary>
+    /// This is the event handler the receives the notification that a file download attempt has completed
+    /// </summary>
+    /// <param name="sender">The sending class/assembly (in this case, the DataFileDownloader class)</param>
+    /// <param name="e">The arguments that accompany the event (see the properties of <seealso cref="DataFileDownloader"/>)</param>
+    private void DataFileDownloader_DownloadCompleted(object? sender, DataFileDownloadEventArgs e)
+    {
+        if (e.FileDownloadedSuccessfully)
+        {
+            UpdateStatusLabel($"Download of {e.FileNameDownloaded} is Complete. Total size: {e.TotalBytesDownloaded.BytesAsHumanReadableString()}");
+        }
+        else
+        {
+            UpdateStatusLabel("Download Failed." + e.Exception?.Message);
+        }
 
     }
 
@@ -97,5 +143,17 @@ public partial class MainForm : Form
         }
 
 
+    }
+
+    /// <summary>
+    /// Runs as the form is loading before it gets displayed/drawn for the first time.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void MainForm_Load(object sender, EventArgs e)
+    {
+        // Setup certain control properties to some initial values.
+        lblStatus.Text = "Ready";
+        pbarProgress.Value = 0;
     }
 }
