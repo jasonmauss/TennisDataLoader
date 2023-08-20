@@ -122,9 +122,9 @@ partial class MainForm
         grpMatchYears.Controls.Add(flpMatchYears);
         grpMatchYears.Controls.Add(btnSelectNoYears);
         grpMatchYears.Controls.Add(btnSelectAllYears);
-        grpMatchYears.Location = new Point(12, 122);
+        grpMatchYears.Location = new Point(12, 143);
         grpMatchYears.Name = "grpMatchYears";
-        grpMatchYears.Size = new Size(272, 445);
+        grpMatchYears.Size = new Size(272, 424);
         grpMatchYears.TabIndex = 2;
         grpMatchYears.TabStop = false;
         grpMatchYears.Text = "Load Matches from Years";
@@ -190,7 +190,7 @@ partial class MainForm
         flpMatchYears.Controls.Add(chk2023);
         flpMatchYears.Location = new Point(11, 56);
         flpMatchYears.Name = "flpMatchYears";
-        flpMatchYears.Size = new Size(252, 383);
+        flpMatchYears.Size = new Size(252, 359);
         flpMatchYears.TabIndex = 3;
         // 
         // chk1968
@@ -776,16 +776,15 @@ partial class MainForm
         // 
         // lblStatus
         // 
-        lblStatus.AutoSize = true;
         lblStatus.Location = new Point(12, 64);
         lblStatus.Name = "lblStatus";
-        lblStatus.Size = new Size(76, 15);
+        lblStatus.Size = new Size(271, 47);
         lblStatus.TabIndex = 3;
         lblStatus.Text = "<StatusText>";
         // 
         // pbarProgress
         // 
-        pbarProgress.Location = new Point(12, 82);
+        pbarProgress.Location = new Point(13, 114);
         pbarProgress.Name = "pbarProgress";
         pbarProgress.Size = new Size(271, 23);
         pbarProgress.Step = 1;
@@ -809,11 +808,11 @@ partial class MainForm
         SizeGripStyle = SizeGripStyle.Hide;
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Tennis Data Loader";
+        Load += MainForm_Load;
         grpMatchYears.ResumeLayout(false);
         flpMatchYears.ResumeLayout(false);
         flpMatchYears.PerformLayout();
         ResumeLayout(false);
-        PerformLayout();
     }
 
     #endregion

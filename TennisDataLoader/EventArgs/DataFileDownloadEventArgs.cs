@@ -24,7 +24,10 @@ namespace TennisDataLoader
         /// <summary>
         /// How many total bytes the downloaded file was.
         /// </summary>
-        public int TotalBytesDownloaded { get; set; } = 0;
+        public long TotalBytesDownloaded { get; set; }
+
+        // If an exception occurred, provide it using this property
+        public Exception? Exception { get; set; } = null;
 
         /// <summary>
         /// Constructor method
@@ -37,6 +40,10 @@ namespace TennisDataLoader
             FileDownloadedSuccessfully = fileDownloadedSuccessfully;
             FileNameDownloaded = fileNameDownloaded;
             TotalBytesDownloaded = totalBytesDownloaded;
+        }
+
+        public DataFileDownloadEventArgs()
+        {
         }
     }
 }
