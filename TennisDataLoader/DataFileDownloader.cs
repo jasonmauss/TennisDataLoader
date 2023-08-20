@@ -61,9 +61,10 @@ namespace TennisDataLoader
                     {
                         await fileStream.WriteAsync(buffer, 0, read);
                         bytesRead += read;
-
+                        double percentage = (double)bytesRead / (double)totalBytes;
+                        percentage *= 100;
                         // Report progress
-                        ((IProgress<double>)progress).Report((double)(bytesRead / totalBytes) * 100);
+                        ((IProgress<double>)progress).Report(percentage);
                     }
 
                 } while (isMoreToRead);
@@ -82,9 +83,8 @@ namespace TennisDataLoader
 
         protected virtual void OnDownloadCompleted(DataFileDownloadEventArgs e)
         {
-            DataFileDownloadProgressEventArgs progressArgs = new DataFileDownloadProgressEventArgs(0);
-            progressArgs.ProgressPercentage = 100D;
-            ProgressChanged?.Invoke(this, progressArgs);
+            //DataFileDownloadProgressEventArgs progressArgs = new DataFileDownloadProgressEventArgs(100D);
+            //ProgressChanged?.Invoke(this, progressArgs);
             DownloadCompleted?.Invoke(this, e);
         }
 
