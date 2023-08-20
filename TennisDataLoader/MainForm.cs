@@ -55,7 +55,8 @@ public partial class MainForm : Form
     {
         lblStatus.Text = statusText;
         lblStatus.Update();
-
+        this.Refresh();
+        this.Update();
     }
 
     /// <summary>
@@ -66,6 +67,8 @@ public partial class MainForm : Form
     {
         pbarProgress.Value = Convert.ToInt32(percentComplete);
         pbarProgress.Update();
+        this.Refresh();
+        this.Update();
     }
 
     /// <summary>
