@@ -71,6 +71,12 @@ public partial class MainForm : Form
         this.Update();
     }
 
+    private void ToggleButtonsEnabled(bool enabledState)
+    {
+        btnLoadMatches.Enabled = enabledState;
+        btnLoadPlayers.Enabled = enabledState;
+    }
+
     /// <summary>
     /// This click handler kicks off the process of downloading the csv data file
     /// and then loading that player data into the database
@@ -79,6 +85,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private async void btnLoadPlayers_Click(object sender, EventArgs e)
     {
+        ToggleButtonsEnabled(false);
         UpdateStatusLabel("Downloading Player Data...");
         UpdateProgress(0); // basically reset progress to zero before this runs
 
@@ -91,7 +98,7 @@ public partial class MainForm : Form
             dataFileDownloader.DownloadCompleted += DataFileDownloader_DownloadCompleted;
             await dataFileDownloader.DownloadFile(playersCsvDataFileUrl, localPlayersDataFilePath);
         }
-
+        ToggleButtonsEnabled(true);
     }
 
     /// <summary>
@@ -129,23 +136,45 @@ public partial class MainForm : Form
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnLoadMatches_Click(object sender, EventArgs e)
+    private async void btnLoadMatches_Click(object sender, EventArgs e)
     {
+        ToggleButtonsEnabled(false);
+
         List<int> years = new List<int>();
         UpdateProgress(0); // basically reset progress to zero before this runs
 
-        UpdateStatusLabel("Gathering Years...");
+        UpdateStatusLabel("Gathering Match Years...");
 
         foreach (Control ctl in this.flpMatchYears.Controls)
         {
             if (ctl is CheckBox)
             {
                 CheckBox chk = (CheckBox)ctl;
-                years.Add(int.Parse(chk.Text));
+                if (chk.Checked)
+                {
+                    years.Add(int.Parse(chk.Text));
+                }
             }
         }
 
+        // Go through each year that was gathered from the checkboxes
+        // and download the data file for each year
+        using (DataFileDownloader dataFileDownloader = new DataFileDownloader())
+        {
+            dataFileDownloader.ProgressChanged += DataFileDownloader_ProgressChanged;
+            dataFileDownloader.DownloadCompleted += DataFileDownloader_DownloadCompleted;
 
+            foreach (int year in years) {
+                UpdateProgress(0D);
+                UpdateStatusLabel($"Downloading matches data for {year}");
+                string matchesCsvDataFileUrl = $"https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_matches_{year}.csv";
+                string localMatchesDataFilePath = Path.Combine(ProjectSourcePath.Value + $"DataFiles\\MatchesData\\atp_matches_{year}.csv");
+                await dataFileDownloader.DownloadFile(matchesCsvDataFileUrl, localMatchesDataFilePath);
+            }
+
+        }
+
+        ToggleButtonsEnabled(true);
     }
 
     /// <summary>
