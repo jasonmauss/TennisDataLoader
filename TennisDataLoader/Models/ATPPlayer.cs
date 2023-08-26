@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace TennisDataLoader.Models
 {
+    /// <summary>
+    /// Represents an ATP Player, in other words a row from the atp_players.csv file
+    /// </summary>
+    [Delimiter(",")]
     public class ATPPlayer
     {
         public ATPPlayer() { }
@@ -39,7 +44,7 @@ namespace TennisDataLoader.Models
         /// The players date of birth
         /// </summary>
         [JsonPropertyName("dateOfBirth")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
         /// The three character IOC abbreviation for the country the player is a citizen of
@@ -51,7 +56,7 @@ namespace TennisDataLoader.Models
         /// How tall the player is, measured in centimeters
         /// </summary>
         [JsonPropertyName("heightInCentimeters")]
-        public int HeightInCentimeters { get; set; }
+        public int? HeightInCentimeters { get; set; }
 
         /// <summary>
         /// The Wikipedia identifier for the players page on the Wikipedia website

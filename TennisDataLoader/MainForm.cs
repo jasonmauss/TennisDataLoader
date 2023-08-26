@@ -98,6 +98,11 @@ public partial class MainForm : Form
             dataFileDownloader.DownloadCompleted += DataFileDownloader_DownloadCompleted;
             await dataFileDownloader.DownloadFile(playersCsvDataFileUrl, localPlayersDataFilePath);
         }
+
+        PlayersFileProcessor playerFileProcessor = new PlayersFileProcessor();
+        playerFileProcessor.ProcessFile(localPlayersDataFilePath);
+        
+
         ToggleButtonsEnabled(true);
     }
 
