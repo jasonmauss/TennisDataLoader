@@ -29,7 +29,7 @@ namespace TennisDataLoader.Models
 
         [BsonElement("drawSize")]
         [JsonPropertyName("drawSize")]
-        public int DrawSize { get; set; }
+        public int? DrawSize { get; set; }
 
         [BsonElement("tournamentLevel")]
         [JsonPropertyName("tournamentLevel")]
@@ -37,11 +37,11 @@ namespace TennisDataLoader.Models
 
         [BsonElement("tournamentDate")]
         [JsonPropertyName("tournamentDate")]
-        public DateTime TournamentDate { get; set; }
+        public DateTime? TournamentDate { get; set; }
 
         [BsonElement("matchNumber")]
         [JsonPropertyName("matchNumber")]
-        public int MatchNumber { get; set; }
+        public int? MatchNumber { get; set; }
 
         [BsonElement("winnerPlayerId")]
         [JsonPropertyName("winnerPlayerId")]
@@ -49,7 +49,7 @@ namespace TennisDataLoader.Models
 
         [BsonElement("winnerPlayerSeed")]
         [JsonPropertyName("winnerPlayerSeed")]
-        public int WinnerPlayerSeed { get; set; }
+        public int? WinnerPlayerSeed { get; set; }
 
         [BsonElement("winnerEntry")]
         [JsonPropertyName("winnerEntry")]
@@ -65,7 +65,7 @@ namespace TennisDataLoader.Models
 
         [BsonElement("winnerHeightInCentimeters")]
         [JsonPropertyName("winnerHeightInCentimeters")]
-        public int WinnerHeightInCentimeters { get; set; }
+        public int? WinnerHeightInCentimeters { get; set; }
 
         [BsonElement("winnerCountryAbbreviation")]
         [JsonPropertyName("winnerCountryAbbreviation")]
@@ -73,7 +73,7 @@ namespace TennisDataLoader.Models
 
         [BsonElement("winnerAge")]
         [JsonPropertyName("winnerAge")]
-        public decimal WinnerAge { get; set; }
+        public decimal? WinnerAge { get; set; }
 
         [BsonElement("loserPlayerId")]
         [JsonPropertyName("loserPlayerId")]
@@ -81,7 +81,7 @@ namespace TennisDataLoader.Models
 
         [BsonElement("loserPlayerSeed")]
         [JsonPropertyName("loserPlayerSeed")]
-        public int LoserPlayerSeed { get; set; }
+        public int? LoserPlayerSeed { get; set; }
 
         [BsonElement("loserEntry")]
         [JsonPropertyName("loserEntry")]
@@ -97,7 +97,7 @@ namespace TennisDataLoader.Models
 
         [BsonElement("loserHeightInCentimeters")]
         [JsonPropertyName("loserHeightInCentimeters")]
-        public int LoserHeightInCentimeters { get; set; }
+        public int? LoserHeightInCentimeters { get; set; }
 
         [BsonElement("loserCountryAbbreviation")]
         [JsonPropertyName("loserCountryAbbreviation")]
@@ -105,7 +105,7 @@ namespace TennisDataLoader.Models
 
         [BsonElement("loserAge")]
         [JsonPropertyName("loserAge")]
-        public decimal LoserAge { get; set; }
+        public decimal? LoserAge { get; set; }
 
         [BsonElement("boxScore")]
         [JsonPropertyName("boxScore")]
@@ -121,95 +121,95 @@ namespace TennisDataLoader.Models
 
         [BsonElement("matchMinutesElapsed")]
         [JsonPropertyName("matchMinutesElapsed")]
-        public int MatchMinutesElapsed { get; set; }
+        public int? MatchMinutesElapsed { get; set; }
 
         [BsonElement("winnerAces")]
         [JsonPropertyName("winnerAces")]
-        public int WinnerAces { get; set; }
+        public int? WinnerAces { get; set; }
 
         [BsonElement("winnerDoubleFaults")]
         [JsonPropertyName("winnerDoubleFaults")]
-        public int WinnerDoubleFaults { get; set; }
+        public int? WinnerDoubleFaults { get; set; }
 
         [BsonElement("winnerServicePoints")]
         [JsonPropertyName("winnerServicePoints")]
-        public int WinnerServicePoints { get; set; }
+        public int? WinnerServicePoints { get; set; }
 
         [BsonElement("winnerFirstServesIn")]
         [JsonPropertyName("winnerFirstServesIn")]
-        public int WinnerFirstServesIn { get; set; }
+        public int? WinnerFirstServesIn { get; set; }
 
         [BsonElement("winnerFirstServesWon")]
         [JsonPropertyName("winnerFirstServesWon")]
-        public int WinnerFirstServesWon { get; set; }
+        public int? WinnerFirstServesWon { get; set; }
 
         [BsonElement("winnerSecondServesWon")]
         [JsonPropertyName("winnerSecondServesWon")]
-        public int WinnerSecondServesWon { get; set; }
+        public int? WinnerSecondServesWon { get; set; }
 
         [BsonElement("winnerServiceGames")]
         [JsonPropertyName("winnerServiceGames")]
-        public int WinnerServicesGames { get; set; }
+        public int? WinnerServicesGames { get; set; }
 
         [BsonElement("winnerBreakPointsSaved")]
         [JsonPropertyName("winnerBreakPointsSaved")]
-        public int WinnerBreakPointsSaved { get; set; }
+        public int? WinnerBreakPointsSaved { get; set; }
 
         [BsonElement("winnerBreakPointsFaced")]
         [JsonPropertyName("winnerBreakPointsFaced")]
-        public int WinnerBreakPointsFaced { get; set; }
+        public int? WinnerBreakPointsFaced { get; set; }
 
         [BsonElement("loserAces")]
         [JsonPropertyName("loserAces")]
-        public int LoserAces { get; set; }
+        public int? LoserAces { get; set; }
 
         [BsonElement("loserDoubleFaults")]
         [JsonPropertyName("loserDoubleFaults")]
-        public int LoserDoubleFaults { get; set; }
+        public int? LoserDoubleFaults { get; set; }
 
         [BsonElement("loserServicePoints")]
         [JsonPropertyName("loserServicePoints")]
-        public int LoserServicePoints { get; set; }
+        public int? LoserServicePoints { get; set; }
 
         [BsonElement("loserFirstServesIn")]
         [JsonPropertyName("loserFirstServesIn")]
-        public int LoserFirstServesIn { get; set; }
+        public int? LoserFirstServesIn { get; set; }
 
         [BsonElement("loserFirstServesWon")]
         [JsonPropertyName("loserFirstServesWon")]
-        public int LoserFirstServesWon { get; set; }
+        public int? LoserFirstServesWon { get; set; }
 
         [BsonElement("loserSecondServesWon")]
         [JsonPropertyName("loserSecondServesWon")]
-        public int LoserSecondServesWon { get; set; }
+        public int? LoserSecondServesWon { get; set; }
 
         [BsonElement("loserServiceGames")]
         [JsonPropertyName("loserServiceGames")]
-        public int LoserServicesGames { get; set; }
+        public int? LoserServicesGames { get; set; }
 
         [BsonElement("loserBreakPointsSaved")]
         [JsonPropertyName("loserBreakPointsSaved")]
-        public int LoserBreakPointsSaved { get; set; }
+        public int? LoserBreakPointsSaved { get; set; }
 
         [BsonElement("loserBreakPointsFaced")]
         [JsonPropertyName("loserBreakPointsFaced")]
-        public int LoserBreakPointsFaced { get; set; }
+        public int? LoserBreakPointsFaced { get; set; }
 
         [BsonElement("winnerRank")]
         [JsonPropertyName("winnerRank")]
-        public int WinnerRank { get; set; }
+        public int? WinnerRank { get; set; }
 
         [BsonElement("winnerRankPoints")]
         [JsonPropertyName("winnerRankPoints")]
-        public int WinnerRankPoints { get; set; }
+        public int? WinnerRankPoints { get; set; }
 
         [BsonElement("loserRank")]
         [JsonPropertyName("loserRank")]
-        public int LoserRank { get; set; }
+        public int? LoserRank { get; set; }
 
         [BsonElement("loserRankPoints")]
         [JsonPropertyName("loserRankPoints")]
-        public int LoserRankPoints { get; set; }
+        public int? LoserRankPoints { get; set; }
 
 
     }

@@ -1,25 +1,21 @@
 ﻿using CsvHelper;
-using MongoDB.Driver;
 using MongoDB.Driver.Core.Events;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TennisDataLoader.ClassCsvMaps;
 using TennisDataLoader.Models;
+using System.Configuration;
+using System.Globalization;
 
 namespace TennisDataLoader
 {
-    /// <summary>
-    /// This class provides functionality to take data from a tennis
-    /// player CSV file, parse it into .NET Objects, then insert those
-    /// objects into a MongoDB database
-    /// </summary>
-    public class PlayersFileProcessor : DataFileProcessor
+    public class MatchesFileProcessor : DataFileProcessor
     {
-        public PlayersFileProcessor() { }
+        public MatchesFileProcessor() { }
 
         public async override void ProcessFile(string filePath)
         {
@@ -29,36 +25,53 @@ namespace TennisDataLoader
 
                 MongoClient mongoClient = CreateMongoClient();
 
+                string fileYear = getYearFromFileName(filePath);
+
                 var database = mongoClient.GetDatabase("ATPTennis");
-                var collection = database.GetCollection<ATPPlayer>("Players");
+                string collectionName = $"Matches_{fileYear}";
+
+                bool collectionExists = database.ListCollectionNames().ToList().Contains(collectionName);
+                if(!collectionExists)
+                {
+                    await database.CreateCollectionAsync(collectionName);
+                }
+
+                var collection = database.GetCollection<ATPMatch>(collectionName);
 
                 // This will basically "truncate" the table/collection, but preserve
                 // the indexes
-                await collection.DeleteManyAsync(Builders<ATPPlayer>.Filter.Empty);
+                if (collectionExists)
+                {
+                    await collection.DeleteManyAsync(Builders<ATPMatch>.Filter.Empty);
+                }
 
-                List<ATPPlayer> players;
+                List<ATPMatch> matches;
 
                 using (var reader = new StreamReader(filePath))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    csv.Context.RegisterClassMap<ATPPlayerMap>();
-                    players = csv.GetRecords<ATPPlayer>().ToList();
+                    csv.Context.RegisterClassMap<ATPMatchMap>();
+                    matches = csv.GetRecords<ATPMatch>().ToList();
                 }
 
-                await collection.InsertManyAsync(players);
+                await collection.InsertManyAsync(matches);
             }
             catch(Exception ex)
             {
-                throw new Exception($"Error occurred while processing Players CSV data file: {filePath} ", ex);
+                throw new Exception($"Error occurred while processing Match CSV data file: { filePath } ", ex);
             }
-            
+        }
 
+        private string getYearFromFileName(string filePath)
+        {
+            int lengthOfPath = Path.GetFileNameWithoutExtension(filePath).Length;
+            return Path.GetFileNameWithoutExtension(filePath).Substring(lengthOfPath - 4);
         }
 
         private MongoClient CreateMongoClient()
         {
             return new MongoClient(
-            
+
                 new MongoClientSettings
                 {
                     Server = new MongoServerAddress("localhost", 27017),
@@ -73,7 +86,7 @@ namespace TennisDataLoader
 
         private void CmdStartHandlerForDeleteManyCommand(CommandStartedEvent commandStartedEvent)
         {
-            if(commandStartedEvent.CommandName == "delete")
+            if (commandStartedEvent.CommandName == "delete")
             {
                 System.Diagnostics.Debug.WriteLine("Delete Started = " + commandStartedEvent.Command);
             }
@@ -86,5 +99,6 @@ namespace TennisDataLoader
                 System.Diagnostics.Debug.WriteLine("Delete Succeeded = " + commandSucceededEvent.Reply);
             }
         }
+
     }
 }
