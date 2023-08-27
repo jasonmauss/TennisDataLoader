@@ -17,7 +17,7 @@ namespace TennisDataLoader.ClassCsvMaps
             Map(m => m.SurfaceType).Name("surface");
             Map(m => m.DrawSize).Name("draw_size");
             Map(m => m.TournamentLevel).Name("tourney_level");
-            Map(m => m.TournamentDate).Name("tourney_date");
+            Map(m => m.TournamentDate).Name("tourney_date").TypeConverterOption.Format("yyyyMMdd");
             Map(m => m.MatchNumber).Name("match_num");
             Map(m => m.WinnerPlayerID).Name("winner_id");
             Map(m => m.WinnerPlayerSeed).Name("winner_seed");

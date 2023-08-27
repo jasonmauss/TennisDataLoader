@@ -179,6 +179,15 @@ public partial class MainForm : Form
 
         }
 
+        foreach(int year in years)
+        {
+            UpdateStatusLabel($"Inserting matches data for {year}");
+            string localMatchesDataFilePath = Path.Combine(ProjectSourcePath.Value + $"DataFiles\\MatchesData\\atp_matches_{year}.csv");
+            MatchesFileProcessor matchesFileProcessor = new MatchesFileProcessor();
+            matchesFileProcessor.ProcessFile(localMatchesDataFilePath);
+        }
+        
+
         ToggleButtonsEnabled(true);
     }
 
